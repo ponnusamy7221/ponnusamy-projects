@@ -1,0 +1,53 @@
+syntax = "proto3";
+option csharp_namespace = "CHEExportsProto";
+package CommonTypes;
+
+message protoStringData
+{
+	string data = 1;
+}
+
+message protoMessage
+{
+	bool has_error = 1;
+	repeated protoMsgDetail error_message = 2;
+	protoMsgDetail info_message = 3;
+}
+
+message protoMsgDetail
+{
+	string msg_type = 1;
+	string msg_description = 2;
+}
+message protoLongData
+{
+	int64 data = 1;
+}
+message entDDLClass{
+	int64 id =1;
+	string code=2;
+	string description =3;
+	string name =4;
+	string constant =5;
+	string full_name =6;
+	string vendor_contact_no = 7;
+	string vendor_code =8;
+	string vendor_legacy_code = 9;
+	string stritemtype = 10;
+	int64 ledger_id = 11;
+	repeated entDDLClass LstDDLClass=12;
+	protoMessage Msg=13;
+}
+
+message entDDL{
+	string Key = 1;
+	repeated entDDLClass Value =2;
+	protoMessage Msg=3;
+}
+
+message entDDLData{
+	repeated entDDL data =1;
+	string Count1=2;
+	string Count2=3;
+	protoMessage Msg=4;
+}

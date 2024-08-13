@@ -1,0 +1,14 @@
+{
+  "basePath": "http://localhost:5049/",
+  "baseAppPath": "http://localhost:4200/",
+  "imagePath": "",
+  "encrypt": true,
+  "maxFileSize": 3145728,
+  "fileSizeErrorMsg": "Upload File size Below 3 MB",
+  "fileAccept": "application/pdf, image/*",
+  "serverDateFormat": "dd-MM-yyyy",
+  "serverDateFormatWithTime": "dd-MM-yyyy HH:mm",
+  "dateViewFormat": "dd/MM/yyyy",
+  "dateViewFormatWithTime": "dd/MM/yyyy HH:mm",
+  "monthviewFormatWithTime": "dd MMM yyyy HH:mm"
+}

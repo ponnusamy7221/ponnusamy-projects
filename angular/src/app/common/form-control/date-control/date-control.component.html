@@ -1,0 +1,52 @@
+@if (!_labelAnimation) {
+<div class="form-group relative w-full mb-3">
+    @if (label !== '') {
+    <label class="text-xs mb-2 font-semibold text-[#2B2B2B]">
+        {{label}}@if (_required) {
+        <span class="text-red-500">*</span>
+        }
+    </label>
+    <div class="input-group relative w-full">
+        <input type="text"
+            class="border border-[#d1d1d1] rounded-md text-sm pl-2 py-2 pr-4 h-10 w-full focus:outline-none"
+            [(ngModel)]="xvalue" name="{{name}}" placeholder="{{placeholder}}" readonly [matDatepicker]="picker"
+            (click)="picker.open()" (dateChange)="dateSelected()" [disabled]="_disabled" (blur)="doBlur()"
+            (focus)="doFocus()" (keydown)="checkEnter($event)" #forminput [id]="name" [ngClass]="{'bg-[#f8f8f8] select-none pointer-events-none': _disabled, 'border-danger': control?.control?.invalid && _errorTrue}"/>
+        <button class="absolute top-0 right-0 w-10 h-10 z-10" (click)="picker.open()" type="button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3.41699" y="3.4165" width="18.5" height="18.5" stroke="#D1D1D1" stroke-width="1.5" />
+                <rect x="6.49365" y="6.49335" width="4.65385" height="4.65385" stroke="#D1D1D1" stroke-width="1.5" />
+                <rect x="6.49365" y="14.1861" width="4.65385" height="4.65385" stroke="#D1D1D1" stroke-width="1.5" />
+                <rect x="14.1865" y="6.49335" width="4.65385" height="4.65385" stroke="#D1D1D1" stroke-width="1.5" />
+                <path d="M6.66699 1.33319V3.99986" stroke="#D1D1D1" stroke-width="1.5" />
+                <path d="M18.667 1.33319V3.99986" stroke="#D1D1D1" stroke-width="1.5" />
+                <rect x="14.1865" y="14.1861" width="4.65385" height="4.65385" stroke="#D1D1D1" stroke-width="1.5" />
+            </svg>
+
+        </button>
+    </div>
+    }
+</div>
+}
+@else {
+<div class="form-group relative w-full">
+    @if(label) {
+    <label class="text-ssm font-normal text-[#999999] absolute top-[-6px] left-3 bg-white z-10  px-1">
+        {{label}}
+    </label>
+    <div class="input-group w-full">
+        <input class="border border-[#d1d1d1] rounded-md text-sm pl-2 py-2 pr-4 h-10 w-full focus:outline-none"
+            [ngClass]="{'bg-[#f8f8f8] select-none pointer-events-none': _disabled}" [placeholder]="placeholder"
+            [ngClass]="{'bg-[#f8f8f8] select-none pointer-events-none': _disabled, 'border-danger': control?.control?.invalid && _errorTrue}"
+            [(ngModel)]="value" name="{{name}}" [id]="name" (blur)="doBlur()" (focus)="doFocus()"
+            (keydown)="checkEnter($event)" #forminput />
+    </div>
+    }
+
+
+</div>
+
+}
+
+<mat-datepicker #picker [disabled]="_disabled">
+</mat-datepicker>

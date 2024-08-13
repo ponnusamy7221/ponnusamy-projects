@@ -1,0 +1,233 @@
+<div class="flex flex-col h-full w-full py-3 gap-y-3">
+    <div class="flex items-center gap-x-3 px-4">
+        <article class="flex items-center gap-x-2">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
+                    <path
+                        d="M7.61898 27.964V23.1605C7.61898 20.3197 9.92109 18.0176 12.7619 18.0176H21.2395C24.0789 18.0176 26.381 20.3197 26.381 23.1605V27.964"
+                        stroke="black" stroke-miterlimit="10" />
+                    <path
+                        d="M16.9992 16.7726C14.0345 16.7726 11.631 14.3691 11.631 11.4043C11.631 8.43956 14.0345 6.03613 16.9992 6.03613C19.964 6.03613 22.3675 8.43956 22.3675 11.4043C22.3675 14.3691 19.964 16.7726 16.9992 16.7726Z"
+                        stroke="black" stroke-miterlimit="10" />
+                </svg>
+            </span>
+            <span class="text-sm font-medium">
+                User
+            </span>
+        </article>
+        <div class="ml-auto flex items-center gap-x-4">
+            <section class="flex-1 flex items-center gap-x-1">
+                <p class="text-xs font-medium text-[#7C7C7C]">
+                    Total
+                </p>
+                <span class="ml-auto p-1 bg-[#F4F4F4] text-sm font-medium text-primary-dc">
+                    52
+                </span>
+            </section>
+            <section class="flex-1 flex items-center gap-x-1">
+                <p class="text-xs font-medium text-[#7C7C7C]">
+                    Active
+                </p>
+                <span class="ml-auto p-1 bg-[#F4F4F4] text-sm font-medium text-[#0FA24A]">
+                    48
+                </span>
+            </section>
+            <section class="flex-1 flex items-center gap-x-1">
+                <p class="text-xs font-medium text-[#7C7C7C]">
+                    Inactive
+                </p>
+                <span class="ml-auto p-1 bg-[#F4F4F4] text-sm font-medium text-[#FF0012]">
+                    4
+                </span>
+            </section>
+            <button
+                class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white"
+                matRipple (click)="createUser()">
+                Add
+            </button>
+        </div>
+    </div>
+    <div class="flex-1 relative">
+        <div class="absolute top-0 left-0 bottom-0 right-0 overflow-hidden z-0">
+            <div class="relative w-full h-full overflow-auto z-10">
+                <div class="table-responsive relative h-full px-4">
+                    <table class="border-collapse w-full">
+                        <thead>
+                            <tr class="">
+                                <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        User Ref No
+                                    </span>
+                                </th>
+                                <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        Full Name
+                                    </span>
+                                </th>
+                                <!-- <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        Department
+                                    </span>
+                                    <span class="block text-ssm font-medium">
+                                        Team
+                                    </span>
+                                </th> -->
+                                <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        Login ID
+                                    </span>
+                                    <!-- <span class="block text-ssm font-medium">
+                                        Keyword
+                                    </span> -->
+                                </th>
+                                <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        Contact Number
+                                    </span>
+                                    <!-- <span class="block text-ssm font-medium">
+                                        Alternate Number
+                                    </span> -->
+                                </th>
+                                <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        DOB
+                                    </span>
+                                    <!-- <span class="block text-ssm font-medium">
+                                        Email ID
+                                    </span> -->
+                                </th>
+                                <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        Email ID
+                                    </span>
+                                    <!-- <span class="block text-ssm font-medium">
+                                        Email ID
+                                    </span> -->
+                                </th>
+                                <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        User Type
+                                    </span>
+                                </th>
+                                <th class="text-left p-2">
+                                    <span class="block text-sm font-bold">
+                                        Status
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (item of searchResult; track $index) {
+                            <tr class="">
+                                <td class="text-left p-2 border-t border-grey-dc cursor-pointer"
+                                    (click)="openUser(item.userId)">
+                                    <span class="block text-xs font-medium text-primary-dc">
+                                        {{item.userRefNo}}
+                                    </span>
+                                </td>
+                                <td class="text-left p-2 border-t border-grey-dc">
+                                    <span class="block text-xs font-medium">
+                                        {{item.userName}}
+                                    </span>
+                                </td>
+                                <td class="text-left p-2 border-t border-grey-dc">
+                                    <span class="block text-xs font-medium">
+                                        {{item.userLoginId}}
+                                    </span>
+                                </td>
+                                <td class="text-left p-2 border-t border-grey-dc">
+                                    <span class="block text-xs font-medium">
+                                        {{item.contactNo}}
+                                    </span>
+                                </td>
+                                <td class="text-left p-2 border-t border-grey-dc">
+                                    <span class="block text-xs font-medium">
+                                        {{item.dob}}
+                                    </span>
+                                </td>
+                                <td class="text-left p-2 border-t border-grey-dc">
+                                    <span class="block text-xs font-medium">
+                                        {{item.emailId}}
+                                    </span>
+                                </td>
+                                <td class="text-left p-2 border-t border-grey-dc">
+                                    <span class="block text-xs font-medium">
+                                        {{item.userTypeDescription}}
+                                    </span>
+                                </td>
+                                <td class="text-left p-2 border-t border-grey-dc">
+                                    <span class="block text-xs font-medium"
+                                        [ngClass]="{'text-green-500': item.statusDescription === 'Active', 'text-red-500': item.statusDescription !== 'Active'}">
+                                        {{item.statusDescription}}
+                                    </span>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #userTemplate>
+    <form class="flex flex-col h-full" #l="ngForm" (ngSubmit)="save()">
+        <div class="flex items-center py-4 px-4">
+            <h5 class="text-primary-dc font-semibold">
+                Add New User
+            </h5>
+            <button class="ml-auto outline-none rounded-md w-[34px] h-[34px] flex items-center justify-center" matRipple
+                (click)="slideClose()" type="button">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 23L14 14M14 14L23 5M14 14L5 5M14 14L23 23" stroke="#2B2B2B" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+        <div class="flex-1 relative">
+            <div class="absolute top-0 left-0 right-0 bottom-0 overflow-hidden z-0">
+                <div class="relative w-full h-full overflow-auto z-10 px-4">
+                    <div class="flex flex-col gap-y-2">
+                        <div class="block">
+                            <app-input-control label="User Ref No" [(ngModel)]="user.userRefNo" name="userRefNo"
+                                [disabled]="true" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="User Login ID" [(ngModel)]="user.userLoginId" name="userLoginId"
+                                [required]="true" [errorTrue]="errorTrue" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Keyword" [(ngModel)]="user.keyword" name="keyword" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="First Name" [(ngModel)]="user.firstName" name="firstName" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Middle Name" [(ngModel)]="user.middleName" name="middleName" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Last Name" [(ngModel)]="user.lastName" name="lastName" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Father Name" [(ngModel)]="user.fatherName" name="fatherName" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="py-2 border-t border-t-grey-dc">
+            <div class="flex items-center justify-end gap-x-4 px-4">
+                <button
+                    class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white"
+                    (click)="slideClose()">
+                    Cancel
+                </button>
+                <button
+                    class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]">
+                    {{type === 'new' ? 'Save' : 'Update'}}
+                </button>
+            </div>
+        </div>
+    </form>
+</ng-template>

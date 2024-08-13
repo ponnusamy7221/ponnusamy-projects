@@ -1,0 +1,657 @@
+<div class="flex flex-row h-full w-full gap-x-4">
+    <ol class="flex flex-col h-full gap-y-2">
+        <li class="flex items-center gap-x-2.5">
+            <a class="w-8.5 h-8.5 rounded-lg flex items-center justify-center cursor-pointer bg-white border border-grey-dc"
+                matRipple [routerLink]="['/home']">
+                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.21101 19V8.76471H2L11.3578 1L20 8.61345H19.0642V18.9496H14.2752V12.1429H8.15596V19"
+                        stroke="#333333" stroke-miterlimit="10" />
+                </svg>
+
+            </a>
+            <a class="w-8.5 h-8.5 rounded-lg flex items-center justify-center cursor-pointer bg-white border border-grey-dc"
+                matRipple [routerLink]="appService.backUrl">
+                <svg width="18" height="18" viewBox="0 0 18 18" class="stroke-menu-outline" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_118_782)">
+                        <path
+                            d="M1.32642 5.21053H10.6106C13.9264 5.21053 16.6738 7.95789 16.6738 11.2737C16.6738 14.5895 13.9264 17.3368 10.6106 17.3368H1.32642"
+                            stroke="#333333" stroke-miterlimit="10" />
+                        <path d="M5.4001 9.37895L1.32642 5.21053L5.4001 1.13684" stroke-miterlimit="10" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_118_782">
+                            <rect width="18" height="18" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </a>
+        </li>
+    </ol>
+    <div class="flex-1 flex flex-col h-full w-full gap-y-3 bg-transparent">
+        @if (order.orderDetailId === 0) {
+        <div class="flex flex-col gap-x-2.5 py-2 px-4 bg-white rounded-md">
+            <div class="flex items-center">
+                <h6 class="text-primary-dc text-sm font-semibold">
+                    Daily Today Preorders &nbsp; <span class="inline-block px-2 bg-gray-100 rounded-sm text-primary-dc">
+                        {{preOrders.length}}
+                    </span>
+                </h6>
+                <div class="ml-auto flex items-center gap-x-3">
+                    <button class="bg-transparent w-8 h-8 rounded-full inline-flex items-center justify-center"
+                        (click)="preOrderExpand = !preOrderExpand" [ngClass]="{'rotate-180': !preOrderExpand}">
+                        <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.9725 8.5L7 3.55533L2.0275 8.5L0.5 6.97773L7 0.5L13.5 6.97773L11.9725 8.5Z"
+                                fill="#D1D1D1" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            @if (preOrderExpand) {
+            <div class="grid grid-cols-3 gap-x-2 gap-y-2">
+                @for (item of preOrders; track $index) {
+                <div class="bg-white border cursor-pointer border-grey-dc rounded-md p-4 hover:border-primary-dc hover:bg-menu-hover transition-all duration-500 ease-in-out flex flex-col gap-y-1"
+                    (click)="selectPreOrder(item)">
+                    <div class="flex items-center gap-x-4">
+                        <span class="text-label text-ssm">
+                            Order Date
+                            <strong class="text-menu-outline">
+                                {{item.enteredDate}}
+                            </strong>
+                        </span>
+                        <span class="text-label text-ssm">
+                            Order Status
+                            <strong class="text-green-500">
+                                {{item.statusDescription}}
+                            </strong>
+                        </span>
+                    </div>
+                    <div class="text-value text-sm font-extrabold">
+                        {{item.iprotoCustomer.customerName}}
+                    </div>
+                    <span class="text-label text-ssm">
+                        From
+                        <strong class="text-menu-outline font-extrabold text-ssm">
+                            &nbsp; {{item.iprotoCustomer.city}}, &nbsp;
+                            {{item.iprotoCustomer.country}}
+                        </strong>
+                    </span>
+                </div>
+                }
+            </div>
+            }
+
+        </div>
+        }
+
+
+        <div class="flex-1 relative">
+            <div class="absolute top-0 left-0 right-0 bottom-0 overflow-hidden z-0">
+                <div class="relative w-full h-full overflow-auto z-10">
+                    <div class="flex flex-col h-full w-full rounded-md gap-y-3 bg-transparent"
+                        [ngClass]="{'bg-white': order.orderDetailId === 0,}">
+
+                        <div class="flex flex-col gap-x-2.5 py-2 px-4 bg-white rounded-md">
+                            <div class="flex items-center">
+                                <h6 class="text-primary-dc text-sm font-semibold">
+                                    Basic Details
+                                </h6>
+                                @if (order.orderDetailId !== 0) {
+                                <div class="ml-auto flex items-center gap-x-3">
+                                    @if (expandedOrder) {
+                                    <button
+                                        class="bg-primary-dc w-8 h-8 rounded-full inline-flex items-center justify-center"
+                                        (click)="(isOrderEdit = !isOrderEdit)">
+                                        @if (!isOrderEdit) {
+                                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M3.75 13.5H6.93C7.0287 13.5006 7.12655 13.4817 7.21793 13.4443C7.30931 13.407 7.39242 13.352 7.4625 13.2825L12.6525 8.08502L14.7825 6.00002C14.8528 5.93029 14.9086 5.84734 14.9467 5.75595C14.9847 5.66455 15.0043 5.56652 15.0043 5.46752C15.0043 5.36851 14.9847 5.27048 14.9467 5.17908C14.9086 5.08769 14.8528 5.00474 14.7825 4.93502L11.6025 1.71752C11.5328 1.64722 11.4498 1.59142 11.3584 1.55335C11.267 1.51527 11.169 1.49567 11.07 1.49567C10.971 1.49567 10.873 1.51527 10.7816 1.55335C10.6902 1.59142 10.6072 1.64722 10.5375 1.71752L8.4225 3.84002L3.2175 9.03752C3.14799 9.1076 3.093 9.19071 3.05567 9.28209C3.01835 9.37346 2.99943 9.47131 3 9.57001V12.75C3 12.9489 3.07902 13.1397 3.21967 13.2803C3.36032 13.421 3.55109 13.5 3.75 13.5ZM11.07 3.30752L13.1925 5.43002L12.1275 6.49502L10.005 4.37252L11.07 3.30752ZM4.5 9.87752L8.9475 5.43002L11.07 7.55252L6.6225 12H4.5V9.87752ZM15.75 15H2.25C2.05109 15 1.86032 15.079 1.71967 15.2197C1.57902 15.3603 1.5 15.5511 1.5 15.75C1.5 15.9489 1.57902 16.1397 1.71967 16.2803C1.86032 16.421 2.05109 16.5 2.25 16.5H15.75C15.9489 16.5 16.1397 16.421 16.2803 16.2803C16.421 16.1397 16.5 15.9489 16.5 15.75C16.5 15.5511 16.421 15.3603 16.2803 15.2197C16.1397 15.079 15.9489 15 15.75 15Z"
+                                                fill="white" />
+                                        </svg>
+                                        }
+                                        @else {
+                                        <svg width="18" height="18" viewBox="0 0 28 28" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M5 23L14 14M14 14L23 5M14 14L5 5M14 14L23 23" stroke="#FFFFFF"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                        }
+
+                                    </button>
+                                    }
+                                    <button
+                                        class="bg-transparent w-8 h-8 rounded-full inline-flex items-center justify-center"
+                                        (click)="setOrderExpanded()" [ngClass]="{'rotate-180': !expandedOrder}">
+                                        <svg width="14" height="9" viewBox="0 0 14 9" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M11.9725 8.5L7 3.55533L2.0275 8.5L0.5 6.97773L7 0.5L13.5 6.97773L11.9725 8.5Z"
+                                                fill="#D1D1D1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                }
+
+                            </div>
+
+                            @if (order.orderDetailId !== 0 && !expandedOrder) {
+                            <div class="grid grid-cols-5 gap-x-3 flex-1">
+                                <div class="form-group">
+                                    <label class="text-label text-xs font-semibold">
+                                        Order No
+                                    </label>
+                                    <div class="text-value text-sm font-semibold">
+                                        {{order.orderRefNo}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-label text-xs font-semibold">
+                                        Order Date
+                                    </label>
+                                    <div class="text-value text-sm font-semibold">
+                                        {{order.orderDate}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-label text-xs font-semibold">
+                                        Customer Name
+                                    </label>
+                                    <div class="text-value text-sm font-semibold">
+                                        {{order.customerDetails.split('#')[0]}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-label text-xs font-semibold">
+                                        Freight Unloaded Godown Name
+                                    </label>
+                                    <div class="text-value text-sm font-semibold">
+                                        {{order.wareHouseDetails.split('#')[0]}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-label text-xs font-semibold">
+                                        Vendor / Consignor Type
+                                    </label>
+                                    <div class="text-value text-sm font-semibold">
+                                        @if(order.isWithinChennai === 'Y') {
+                                        Chennai
+                                        }
+                                        @else {
+                                        Out of Chennai
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            }
+
+                            <form #l="ngForm" (ngSubmit)="save(false)">
+                                @if ((order.orderDetailId === 0 && type === 'new') || (order.orderDetailId !== 0 &&
+                                expandedOrder) && type ===
+                                "edit") {
+                                <div class="grid grid-cols-3 gap-x-3">
+                                    <div class="block">
+                                        <app-number-control label="Order No" [disabled]="true"
+                                            [(ngModel)]="order.orderRefNo" name="orderRefNo" [required]="true"
+                                            [errorTrue]="errorTrue" />
+                                    </div>
+                                    <div class="block">
+                                        <app-date-control label="Order Date" [(ngModel)]="order.orderDate" name="orderDate"
+                                            [required]="true" [errorTrue]="errorTrue"
+                                            [disabled]="order.orderDetailId !== 0 && !isOrderEdit" />
+                                    </div>
+                                    <div class="block">
+                                        <app-customer-search label="Customer Name" name="Customer Name"
+                                            [(ngModel)]="order.customerId" name="customerId"
+                                            [displayText]="order.customerDetails.split('#')[0]"
+                                            (onSelect)="selectCustomer($event)" [required]="true" [errorTrue]="errorTrue"
+                                            valueType="int" [disabled]="order.orderDetailId !== 0 && !isOrderEdit" />
+                                    </div>
+                                    <div class="block">
+                                        <app-warehouse-search label="Freight Unloaded Godown Name"
+                                            [(ngModel)]="order.warehouseId" name="warehouseId"
+                                            [displayText]="order.wareHouseDetails.split('#')[0]"
+                                            (onSelect)="selectWarehouse($event)" [required]="true" [errorTrue]="errorTrue"
+                                            valueType="int" [disabled]="order.orderDetailId !== 0 && !isOrderEdit" />
+                                    </div>
+
+                                    <div class="block form-group">
+                                        <label class="text-xs text-[#2b2b2b] mb-2 font-semibold">
+                                            Choose vendor / Consignor Type
+                                        </label>
+                                        <div class="value">
+                                            <mat-radio-group aria-label="choose vendor" (change)="onVendorChange($event)"
+                                                [(ngModel)]="order.isWithinChennai" name="isWithinChennai" [required]="true"
+                                                [disabled]="order.orderDetailId !== 0 && !isOrderEdit">
+                                                <mat-radio-button value="Y"
+                                                    [checked]="order.isWithinChennai === 'Y'">Chennai</mat-radio-button>
+                                                <mat-radio-button value="N" [checked]="order.isWithinChennai === 'N'">Out of
+                                                    Chennai</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (isOrderEdit) {
+                                <div class="flex items-center justify-end gap-x-4 pt-3">
+                                    @if (order.orderDetailId === 0) {
+                                    <button
+                                        class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white"
+                                        [routerLink]="['/home/order']">
+                                        Cancel
+                                    </button>
+                                    }
+
+                                    <button
+                                        class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                        (click)="save(false)">
+                                        Update
+                                    </button>
+                                </div>
+                                }
+                                }
+                            </form>
+                        </div>
+
+
+
+
+                        <div class="flex-1 relative">
+                            <div class="absolute top-0 left-0 right-0 bottom-0 z-0 overfslow-hidden">
+                                <div class="relative w-full h-full z-10 overflow-auto">
+                                    @if (order.isWithinChennai === 'N' && order.orderDetailId !== 0) {
+                                    <form class="flex flex-col gap-x-2.5 py-2 px-4 bg-white rounded-md" #r="ngForm"
+                                        (ngSubmit)="saveLR(r)">
+                                        <div class="flex items-center">
+                                            <h6 class="text-primary-dc text-sm font-semibold">
+                                                L.R. Details
+                                            </h6>
+                                            @if (order.iprotoLRDetails.lrDetailId !== 0) {
+                                            <div class="ml-auto flex items-center gap-x-3">
+                                                @if (expandedLR) {
+
+                                                <button
+                                                    class="bg-primary-dc w-8 h-8 rounded-full inline-flex items-center justify-center"
+                                                    (click)="(isLREdit = !isLREdit)" type="button">
+                                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M3.75 13.5H6.93C7.0287 13.5006 7.12655 13.4817 7.21793 13.4443C7.30931 13.407 7.39242 13.352 7.4625 13.2825L12.6525 8.08502L14.7825 6.00002C14.8528 5.93029 14.9086 5.84734 14.9467 5.75595C14.9847 5.66455 15.0043 5.56652 15.0043 5.46752C15.0043 5.36851 14.9847 5.27048 14.9467 5.17908C14.9086 5.08769 14.8528 5.00474 14.7825 4.93502L11.6025 1.71752C11.5328 1.64722 11.4498 1.59142 11.3584 1.55335C11.267 1.51527 11.169 1.49567 11.07 1.49567C10.971 1.49567 10.873 1.51527 10.7816 1.55335C10.6902 1.59142 10.6072 1.64722 10.5375 1.71752L8.4225 3.84002L3.2175 9.03752C3.14799 9.1076 3.093 9.19071 3.05567 9.28209C3.01835 9.37346 2.99943 9.47131 3 9.57001V12.75C3 12.9489 3.07902 13.1397 3.21967 13.2803C3.36032 13.421 3.55109 13.5 3.75 13.5ZM11.07 3.30752L13.1925 5.43002L12.1275 6.49502L10.005 4.37252L11.07 3.30752ZM4.5 9.87752L8.9475 5.43002L11.07 7.55252L6.6225 12H4.5V9.87752ZM15.75 15H2.25C2.05109 15 1.86032 15.079 1.71967 15.2197C1.57902 15.3603 1.5 15.5511 1.5 15.75C1.5 15.9489 1.57902 16.1397 1.71967 16.2803C1.86032 16.421 2.05109 16.5 2.25 16.5H15.75C15.9489 16.5 16.1397 16.421 16.2803 16.2803C16.421 16.1397 16.5 15.9489 16.5 15.75C16.5 15.5511 16.421 15.3603 16.2803 15.2197C16.1397 15.079 15.9489 15 15.75 15Z"
+                                                            fill="white" />
+                                                    </svg>
+
+                                                </button>
+                                                }
+                                                <button
+                                                    class="bg-transparent w-8 h-8 rounded-full inline-flex items-center justify-center"
+                                                    (click)="setLRExpanded()" type="button"
+                                                    [ngClass]="{'rotate-180': !expandedLR}">
+                                                    <svg width="14" height="9" viewBox="0 0 14 9" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M11.9725 8.5L7 3.55533L2.0275 8.5L0.5 6.97773L7 0.5L13.5 6.97773L11.9725 8.5Z"
+                                                            fill="#D1D1D1" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            }
+
+                                        </div>
+                                        @if (order.iprotoLRDetails.lrDetailId === 0 || (order.iprotoLRDetails.lrDetailId !==
+                                        0 &&
+                                        expandedLR)) {
+                                        <div class="grid grid-cols-3 pb-3 gap-x-3">
+                                            <div class="block">
+                                                <app-input-control label="L.R. Number" [(ngModel)]="orderLRDetail.lrNo"
+                                                    name="lrNo"
+                                                    [disabled]="order.iprotoLRDetails.lrDetailId !==0 && !isLREdit"
+                                                    [required]="true" [errorTrue]="errorTrueLR" />
+                                            </div>
+                                            <div class="block">
+                                                <app-date-control label="Received Date"
+                                                    [(ngModel)]="orderLRDetail.receivedDate" name="receivedDate"
+                                                    [disabled]="order.iprotoLRDetails.lrDetailId !== 0 && !isLREdit"
+                                                    [required]="true" [errorTrue]="errorTrueLR" />
+                                            </div>
+                                            <div class="block">
+                                                <app-transport-type label="Transport Type"
+                                                    [displayText]="orderLRDetail.transportNameDescription"
+                                                    [(ngModel)]="orderLRDetail.transportNameValue" name="transportNameValue"
+                                                    (onSelect)="selectTransport($event)"
+                                                    [disabled]="order.iprotoLRDetails.lrDetailId !== 0 && !isLREdit"></app-transport-type>
+
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-3 pb-3 gap-x-3">
+                                            <div class="block">
+                                                <app-vendor-search label="Vendor / Consignor Name"
+                                                    [displayText]="orderLRDetail.vendorDetails.split('#')[0]"
+                                                    [(ngModel)]="orderLRDetail.vendorId" name="vendorId"
+                                                    (onSelect)="selectVendorLR($event)" [disabled]="order.iprotoLRDetails.lrDetailId !==
+                                        0 && !isLREdit" [required]="true" [errorTrue]="errorTrueLR" />
+                                            </div>
+                                            <div class="block">
+                                                <app-consignee-search label="Consignee Name"
+                                                    [displayText]="orderLRDetail.consigneeName"
+                                                    [(ngModel)]="orderLRDetail.consigneeName" name="consigneeName"
+                                                    (onSelect)="selectConsigneeLR($event)" [disabled]="order.iprotoLRDetails.lrDetailId !==
+                                        0 && !isLREdit" />
+
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-3 pb-3 gap-x-3">
+                                            <div class="block">
+                                                <app-package-type label="Package Type"
+                                                    [displayText]="orderLRDetail.packageTypeDescription"
+                                                    [(ngModel)]="orderLRDetail.packageTypeValue" name="packageTypeValue"
+                                                    (onSelect)="selectPackageTypeLR($event)" [disabled]="order.iprotoLRDetails.lrDetailId !==
+                                        0 && !isLREdit" />
+                                            </div>
+                                            <div class="block">
+                                                <app-mode-of-package label="Mode of Packing"
+                                                    [displayText]="orderLRDetail.modeOfPackingDescription"
+                                                    [(ngModel)]="orderLRDetail.modeOfPackingValue" name="modeOfPackingValue"
+                                                    (onSelect)="selectPackingLR($event)" [disabled]="order.iprotoLRDetails.lrDetailId !==
+                                        0 && !isLREdit" />
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-x-3">
+                                                <div class="block">
+                                                    <app-input-control label="Net Wt." [(ngModel)]="orderLRDetail.netWeight"
+                                                        name="netWeight" [disabled]="order.iprotoLRDetails.lrDetailId !==
+                                        0 && !isLREdit"></app-input-control>
+                                                </div>
+                                                <div class="block">
+                                                    <app-input-control label="Gross Wt."
+                                                        [(ngModel)]="orderLRDetail.grossWeight" name="grossWeight"
+                                                        [disabled]="order.iprotoLRDetails.lrDetailId !==
+                                        0 && !isLREdit"></app-input-control>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-3 pb-3 gap-x-3">
+                                            <div class="flex flex-col gap-y-2">
+                                                <div class="block">
+                                                    <app-input-control label="Value of Good per Invoice"
+                                                        [(ngModel)]="orderLRDetail.valueOfGoodsAsPerInvoice"
+                                                        name="valueOfGoodsAsPerInvoice" [disabled]="order.iprotoLRDetails.lrDetailId !==
+                                        0 && !isLREdit"></app-input-control>
+                                                </div>
+                                                <div class="block">
+                                                    <app-input-control label="To pay (Freight Charges)"
+                                                        [(ngModel)]="orderLRDetail.toPayFreightCharges"
+                                                        name="toPayFreightCharges" [disabled]="order.iprotoLRDetails.lrDetailId !==
+                                        0 && !isLREdit" [required]="true" [errorTrue]="errorTrueLR"></app-input-control>
+                                                </div>
+                                            </div>
+                                            <div class="col-span-2 row-span-2">
+                                                <app-attachment-control label="Attachment"
+                                                    [(ngModel)]="orderLRDetail.lrPhotoCopy" name="lrPhotoCopy"
+                                                    (selectedFile)="selectedData($event)"
+                                                    [file]="orderLRDetail.lrPhotoCopy"></app-attachment-control>
+                                            </div>
+                                        </div>
+                                        @if (order.iprotoLRDetails.lrDetailId == 0 || isLREdit) {
+                                        <div class="flex items-center gap-x-4 ml-auto p-4">
+                                            @if (order.iprotoLRDetails.lrDetailId === 0) {
+                                            <button
+                                                class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white"
+                                                type="button" [routerLink]="['/home/order']">
+                                                Cancel
+                                            </button>
+                                            <button
+                                                class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                                type="submit">
+                                                Save
+                                            </button>
+                                            }
+                                            @else {
+                                            <button
+                                                class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white"
+                                                type="button" [routerLink]="['/home/order']">
+                                                Cancel
+                                            </button>
+                                            <button
+                                                class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                                type="submit">
+                                                Update
+                                            </button>
+                                            }
+                                        </div>
+                                        }
+
+                                        }
+                                        @else {
+                                        <div class="grid grid-cols-5 gap-x-3 flex-1">
+                                            <div class="form-group">
+                                                <label class="text-label text-xs font-semibold">
+                                                    LR No
+                                                </label>
+                                                <div class="text-value text-sm font-semibold">
+                                                    {{order.iprotoLRDetails.lrNo}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="text-label text-xs font-semibold">
+                                                    Received Date
+                                                </label>
+                                                <div class="text-value text-sm font-semibold">
+                                                    {{order.iprotoLRDetails.receivedDate}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="text-label text-xs font-semibold">
+                                                    Vendor / Consignor Name
+                                                </label>
+                                                <div class="text-value text-sm font-semibold">
+                                                    {{orderLRDetail.vendorDetails.split('#')[0]}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="text-label text-xs font-semibold">
+                                                    To Pay (Freight Charges)
+                                                </label>
+                                                <div class="text-value text-sm font-semibold">
+                                                    {{order.iprotoLRDetails.toPayFreightCharges}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <h6 class="text-sm font-medium flex items-center gap-x-2">
+                                                    <span class="p-1 rounded-full block"
+                                                        [ngClass]="{'bg-green-600': order.statusDescription === 'Complete', 'bg-amber-600':  order.statusDescription !== 'Complete'}"></span>
+                                                    <strong class=""
+                                                        [ngClass]="{'text-green-600': order.statusDescription === 'Complete', 'text-amber-600':  order.statusDescription !== 'Complete'}">
+                                                        {{order.statusDescription}}
+                                                    </strong>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        }
+
+                                    </form>
+                                    }
+                                    @if ((order.orderDetailId !== 0 && order.isWithinChennai === 'Y') ||
+                                    (order.iprotoLRDetails.lrDetailId
+                                    !== 0)) {
+                                    <div class="flex flex-col gap-y-2 p-4 bg-white rounded-md"
+                                        [ngClass]="{'mt-3': order.iprotoLRDetails.lrDetailId !== 0}">
+                                        <div class="flex items-center">
+                                            <h6 class="text-primary-dc text-sm font-semibold">
+                                                Delivery Slip / Invoice Details
+                                            </h6>
+                                            @if (order.iprotoInvoiceDetails.invoiceDetailId !== 0 ||
+                                            order.iprotoOrderDeliverySlipDetailWithoutInvoice.orderDeliverySlipWithoutId !==
+                                            0) {
+                                            <button
+                                                class="bg-primary-dc w-8 h-8 rounded-full inline-flex items-center justify-center ml-auto"
+                                                type="button" (click)="openSlip()">
+                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M3.75 13.5H6.93C7.0287 13.5006 7.12655 13.4817 7.21793 13.4443C7.30931 13.407 7.39242 13.352 7.4625 13.2825L12.6525 8.08502L14.7825 6.00002C14.8528 5.93029 14.9086 5.84734 14.9467 5.75595C14.9847 5.66455 15.0043 5.56652 15.0043 5.46752C15.0043 5.36851 14.9847 5.27048 14.9467 5.17908C14.9086 5.08769 14.8528 5.00474 14.7825 4.93502L11.6025 1.71752C11.5328 1.64722 11.4498 1.59142 11.3584 1.55335C11.267 1.51527 11.169 1.49567 11.07 1.49567C10.971 1.49567 10.873 1.51527 10.7816 1.55335C10.6902 1.59142 10.6072 1.64722 10.5375 1.71752L8.4225 3.84002L3.2175 9.03752C3.14799 9.1076 3.093 9.19071 3.05567 9.28209C3.01835 9.37346 2.99943 9.47131 3 9.57001V12.75C3 12.9489 3.07902 13.1397 3.21967 13.2803C3.36032 13.421 3.55109 13.5 3.75 13.5ZM11.07 3.30752L13.1925 5.43002L12.1275 6.49502L10.005 4.37252L11.07 3.30752ZM4.5 9.87752L8.9475 5.43002L11.07 7.55252L6.6225 12H4.5V9.87752ZM15.75 15H2.25C2.05109 15 1.86032 15.079 1.71967 15.2197C1.57902 15.3603 1.5 15.5511 1.5 15.75C1.5 15.9489 1.57902 16.1397 1.71967 16.2803C1.86032 16.421 2.05109 16.5 2.25 16.5H15.75C15.9489 16.5 16.1397 16.421 16.2803 16.2803C16.421 16.1397 16.5 15.9489 16.5 15.75C16.5 15.5511 16.421 15.3603 16.2803 15.2197C16.1397 15.079 15.9489 15 15.75 15Z"
+                                                        fill="white" />
+                                                </svg>
+
+                                            </button>
+                                            }
+                                        </div>
+                                        <div class="block form-group">
+                                            <label class="text-xs text-[#2b2b2b] mb-2 font-semibold">
+                                                Invoice Detail
+                                            </label>
+                                            <div class="value">
+                                                <mat-radio-group aria-label="choose vendor" [(ngModel)]="order.isInvoice"
+                                                   >
+                                                    <mat-radio-button value="Y" [checked]="order.isInvoice === 'Y'">Received
+                                                        Invoice</mat-radio-button>
+                                                    <mat-radio-button value="N" [checked]="order.isInvoice === 'N'">Without
+                                                        Invoice</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                        </div>
+                                        @if (
+                                        order.isInvoice === 'Y' && order.iprotoInvoiceDetails.invoiceDetailId === 0
+                                        ) {
+                                        <button
+                                            class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                            (click)="addInvoice()">
+                                            Add Invoice Details
+                                        </button>
+                                        }
+                                        @else if (order.isInvoice === 'N' &&
+                                        order.iprotoOrderDeliverySlipDetailWithoutInvoice.orderDeliverySlipWithoutId === 0)
+                                        {
+                                        <button
+                                            class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                            (click)="navigateWithoutInvoice()">
+                                            Add Delivery Slip Details
+                                        </button>
+                                        }
+
+                                        @if (order.iprotoInvoiceDetails.invoiceDetailId !== 0 && order.isInvoice === 'Y' ) {
+                                        <div class="grid grid-cols-3 gap-x-3 p-4">
+                                            <div class="block">
+                                                <app-input-control label="Invoice No"
+                                                    [(ngModel)]="order.iprotoInvoiceDetails.invoiceNo" name="invoiceNo"
+                                                    [disabled]="true" />
+                                            </div>
+                                            <div class="block">
+                                                <app-input-control label="Invoice Value"
+                                                    [(ngModel)]="order.iprotoInvoiceDetails.invoiceTotal"
+                                                    name="invoiceTotal" [disabled]="true" />
+                                            </div>
+                                            @if (order.isWithinChennai === 'Y') {
+                                                <div class="block">
+                                                    <app-input-control label="To Pay (Freight Charges)" [(ngModel)]="order.toPayeeAmount" name="toPayeeAmount"
+                                                        [disabled]="order.isWithinChennai !== 'Y'" />
+                                                </div>
+                                            }
+                                          
+                                        </div>
+                                        }
+
+                                        @if (order.iprotoOrderDeliverySlipDetailWithoutInvoice.orderDeliverySlipWithoutId !== 0 && order.isInvoice === 'N') {
+                                            <div class="grid grid-cols-3 gap-x-3 p-4">
+                                                <div class="block">
+                                                    <app-input-control label="Vendor / Consignor Name" [(ngModel)]="order.iprotoOrderDeliverySlipDetailWithoutInvoice.vendorDetails.split('#')[0]" name="vendorDetails"
+                                                        [disabled]="true" />
+                                                </div>
+                                                <div class="block">
+                                                    <app-input-control label="Goods Value" [(ngModel)]="order.iprotoOrderDeliverySlipDetailWithoutInvoice.totalAmount"
+                                                        name="totalAmount" [disabled]="true" />
+                                                </div>
+                                                @if (order.isWithinChennai === 'Y') {
+                                                  <div class="block">
+                                                    <app-input-control label="To Pay (Freight Charges)"
+                                                        [(ngModel)]="order.toPayeeAmount" name="toPayeeAmount"
+                                                       />
+                                                </div>
+                                                }
+
+                                            </div>
+                                        }
+
+                                        @if (order.lstprotoOrderDeliverySlipDetail.length !== 0) {
+                                        <div class="grid grid-cols-6">
+                                            <h5 class="block py-2 text-sm border-b border-gray-400">
+                                                Product name
+                                            </h5>
+                                            <h5 class="block py-2 text-sm border-b border-gray-400">
+                                                HSN
+                                            </h5>
+                                            <h5 class="block py-2 text-sm border-b border-gray-400">
+                                                Quantity
+                                            </h5>
+                                            <h5 class="block py-2 text-sm border-b border-gray-400">
+                                                Unit
+                                            </h5>
+                                            <h5 class="block py-2 text-sm border-b border-gray-400">
+                                                Rate
+                                            </h5>
+                                            <h5 class="block py-2 text-sm border-b border-gray-400">
+                                                Amount
+                                            </h5>
+                                        </div>
+                                        @for (item of order.lstprotoOrderDeliverySlipDetail; track $index) {
+                                        <div class="grid grid-cols-6">
+                                            <p class="block text-xs font-normal py-2 border-b border-gray-400">
+                                                {{item.productDetails}}
+                                            </p>
+                                            <p class="block text-xs font-normal py-2 border-b border-gray-400">
+                                                {{item.hsnno}}
+                                            </p>
+                                            <p class="block text-xs font-normal py-2 border-b border-gray-400">
+                                                {{item.quantity}}
+                                            </p>
+                                            <p class="block text-xs font-normal py-2 border-b border-gray-400">
+                                                {{item.unitDescription}}
+                                            </p>
+                                            <p class="block text-xs font-normal py-2 border-b border-gray-400">
+                                                {{item.rate}}
+                                            </p>
+                                            <p class="block text-xs font-normal py-2 border-b border-gray-400">
+                                                {{item.amount}}
+                                            </p>
+
+                                        </div>
+                                        }
+                                        }
+
+                                        <div class="flex items-end justify-end gap-x-4 p-4 bg-white rounded-md ml-auto">
+                                            <button
+                                                class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white" [routerLink]="['/home/order']">
+                                                Cancel
+                                            </button>
+                                            <button
+                                                class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                                [ngClass]="{'cursor-not-allowed': order.iprotoInvoiceDetails.invoiceDetailId === 0 && order.iprotoOrderDeliverySlipDetailWithoutInvoice.orderDeliverySlipWithoutId === 0}"
+                                                (click)="save(true)"
+                                                [disabled]="order.iprotoInvoiceDetails.invoiceDetailId === 0 && order.iprotoOrderDeliverySlipDetailWithoutInvoice.orderDeliverySlipWithoutId === 0">
+                                                Save Order
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        @if (order.orderDetailId === 0) {
+                        <div class="flex items-center gap-x-4 ml-auto p-4">
+                            <button
+                               [routerLink]="['/home/order']" class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white">
+                                Cancel
+                            </button>
+                            <button
+                                class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                (click)="save(false)">
+                                Save
+                            </button>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

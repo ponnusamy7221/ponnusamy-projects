@@ -1,0 +1,21 @@
+<div class="fixed bottom-2 left-0 right-0 block w-full px-4">
+<div class="flex flex-col rounded-md border py-1 border-[#FF2727] bg-[#FFEBEB]">
+    <section class="flex items-center py-2 px-2">
+        <h5 class="text-sm font-medium">There are some mismatched items</h5>
+        <button class="ml-auto inline-flex items-center justify-center" type="button" (click)="error.detachOverlay()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.0275 8.5L12 13.4447L16.9725 8.5L18.5 10.0223L12 16.5L5.5 10.0223L7.0275 8.5Z"
+                    fill="#FF2727" />
+            </svg>
+        </button>
+    </section>
+    <ul class="mb-0 pl-0 flex flex-col">
+        @for (item of data.message.errorMessage; track $index) {
+        <li class="odd:bg-[#FFF4F4] py-2 px-2 text-sm font-medium">
+            {{item.msgDescription}}
+        </li>
+        }
+    </ul>
+</div>
+
+</div>

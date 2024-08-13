@@ -1,0 +1,35 @@
+<div class="flex flex-col h-full w-full p-4">
+    <div class="flex items-center ml-auto">
+        <button class="w-10 h-10 inline-flex items-center justify-center" (click)="close()" matRipple>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                    d="M368 368L144 144M368 144L144 368" />
+            </svg>
+        </button>
+    </div>
+    <div class="flex-1 relative">
+        <div class="absolute top-0 left-0 right-0 bottom-0 overflow-hidden z-0">
+            <div class="relative w-full h-full overflow-auto z-10">
+                <div class="flex flex-col gap-y-3 py-4">
+                    <h3 class="font-medium text-[#2b2b2b]">Are you leaving?</h3>
+                    <p class="text-sm font-normal text-[#323232]">
+                        Are you sure want to log out? All your unsaved data will be lost.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center pt-4 border-t border-grey-dc">
+       <div class="ml-auto flex items-center gap-x-4">
+        <button class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white"
+            (click)="close">
+            Cancel
+        </button>
+        <button
+            class="dc-button max-w-max text-[#25511B] bg-[#C3FFBE] border border-[#25511B] rounded-md hover:bg-[#722BE2] hover:text-white hover:border-primary-dc"
+            (click)="yesLogout()">
+            Yes
+        </button>
+       </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+syntax = "proto3";
+option csharp_namespace = "CHEExportsProto";
+import "google/protobuf/Empty.proto";
+import "CommonTypes.proto";
+import "Admin.proto";
+
+package AdminService;
+
+service AdminService{
+	rpc AuthenticateUser(Admin.protoLoginCredentials) returns (Admin.protoLoggedInDetails);
+	rpc CreateNewUser(google.protobuf.Empty) returns (Admin.protoUser);
+	rpc SaveUser(Admin.protoUser) returns (Admin.protoUser);
+	rpc UpdateUser(Admin.protoUser) returns (Admin.protoUser);
+	rpc OpenUser(CommonTypes.protoLongData) returns (Admin.protoUser);
+	rpc DeleteUser(CommonTypes.protoLongData) returns (Admin.protoUser);
+rpc CreateNewMasterConfig(google.protobuf.Empty) returns (Admin.protoMasterConfig);
+rpc SaveMasterConfig(Admin.protoMasterConfig) returns (Admin.protoMasterConfig);
+rpc UpdateMasterConfig(Admin.protoMasterConfig) returns (Admin.protoMasterConfig);
+rpc OpenMasterConfig(CommonTypes.protoLongData) returns (Admin.protoMasterConfig);
+rpc DeleteMasterConfig(CommonTypes.protoLongData) returns (Admin.protoMasterConfig);
+
+rpc CreateNewMessageConfig(google.protobuf.Empty) returns (Admin.protoMessageConfig);
+rpc SaveMessageConfig(Admin.protoMessageConfig) returns (Admin.protoMessageConfig);
+rpc UpdateMessageConfig(Admin.protoMessageConfig) returns (Admin.protoMessageConfig);
+rpc OpenMessageConfig(CommonTypes.protoLongData) returns (Admin.protoMessageConfig);
+rpc DeleteMessageConfig(CommonTypes.protoLongData) returns (Admin.protoMessageConfig);
+
+rpc CreateNewSubConfig(google.protobuf.Empty) returns (Admin.protoSubConfig);
+rpc SaveSubConfig(Admin.protoSubConfig) returns (Admin.protoSubConfig);
+rpc UpdateSubConfig(Admin.protoSubConfig) returns (Admin.protoSubConfig);
+rpc OpenSubConfig(CommonTypes.protoLongData) returns (Admin.protoSubConfig);
+rpc DeleteSubConfig(CommonTypes.protoLongData) returns (Admin.protoSubConfig);
+}
+  

@@ -1,0 +1,204 @@
+<div class="flex flex-row h-full w-full gap-x-4">
+    <ol class="flex flex-col h-full gap-y-2">
+        <li class="flex items-center gap-x-2.5">
+            <a class="w-8.5 h-8.5 rounded-lg flex items-center justify-center cursor-pointer bg-white border border-grey-dc"
+                matRipple [routerLink]="['/home']">
+                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.21101 19V8.76471H2L11.3578 1L20 8.61345H19.0642V18.9496H14.2752V12.1429H8.15596V19" stroke="#333333"
+                        stroke-miterlimit="10" />
+                </svg>
+
+            </a>
+            <a class="w-8.5 h-8.5 rounded-lg flex items-center justify-center cursor-pointer bg-white border border-grey-dc"
+                matRipple [routerLink]="appService.backUrl">
+                <svg width="18" height="18" viewBox="0 0 18 18" class="stroke-menu-outline" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_118_782)">
+                        <path
+                            d="M1.32642 5.21053H10.6106C13.9264 5.21053 16.6738 7.95789 16.6738 11.2737C16.6738 14.5895 13.9264 17.3368 10.6106 17.3368H1.32642"
+                            stroke="#333333" stroke-miterlimit="10" />
+                        <path d="M5.4001 9.37895L1.32642 5.21053L5.4001 1.13684" stroke-miterlimit="10" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_118_782">
+                            <rect width="18" height="18" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </a>
+        </li>
+    </ol>
+    <div class="flex-1 flex flex-col h-full w-full gap-y-2">
+        <div class="flex flex-col gap-x-2.5 rounded-md bg-white p-4">
+            <h6 class="text-primary-dc text-xs font-semibold">
+                Basic Details
+            </h6>
+        <div class="grid grid-cols-5 gap-x-3">
+            <div class="form-group">
+                <label class="text-label text-xs font-semibold">
+                    Order No
+                </label>
+                <div class="text-value text-sm font-semibold">
+                    {{order.orderRefNo}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-label text-xs font-semibold">
+                    Order Date
+                </label>
+                <div class="text-value text-sm font-semibold">
+                    {{order.orderDate}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-label text-xs font-semibold">
+                    Customer Name
+                </label>
+                <div class="text-value text-sm font-semibold">
+                    {{order.customerDetails.split('#')[0]}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-label text-xs font-semibold">
+                    Freight Unloaded Godown Name
+                </label>
+                <div class="text-value text-sm font-semibold">
+                    {{order.wareHouseDetails.split('#')[0]}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-label text-xs font-semibold">
+                    Vendor / Consignor Type
+                </label>
+                <div class="text-value text-sm font-semibold">
+                  @if(order.isWithinChennai === 'Y') {
+                    Chennai
+                }
+                @else {
+                    Out of Chennai
+                }
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="flex-1 relative">
+            <div class="absolute top-0 left-0 right-0 bottom-0 z-0 overflow-hidden">
+                <div class="relative w-full h-full z-10 overflow-auto">
+                    <div class="flex flex-col h-full bg-white rounded px-4 py-3">
+                        <div class="grid grid-cols-4 gap-x-3 border-b border-b-grey-dc">
+                            <div class="block">
+                                <app-input-control label="Delivery Slip No."  [(ngModel)]="slipDetailWithoutInvoice.deliverySlipNumber" name="deliverySlipNumber"></app-input-control>
+                            </div>
+                            <div class="block">
+                                <app-date-control label="Received Date" [(ngModel)]="slipDetailWithoutInvoice.receivedDate" name="receivedDate"></app-date-control>
+                            </div>
+                            <div class="block">
+                                <app-vendor-search label="Vendor / Consignor Name" [displayText]="slipDetailWithoutInvoice.vendorDetails.split('#')[0]" [(ngModel)]="slipDetailWithoutInvoice.vendorId" name="vendorId" (onSelect)="selectVendor($event)"/>
+                            </div>
+                            <div class="block">
+                                <app-consignee-search label="Consignee Name"  [displayText]="slipDetailWithoutInvoice.consigneeDetails.split('#')[0]" [(ngModel)]="slipDetailWithoutInvoice.consigneeId" name="consigneeId"  (onSelect)="selectConsignee($event)"/>
+                            </div>
+
+                        </div>
+                        <div class="flex-1 relative">
+                            <div class="absolute top-0 left-0 right-0 bottom-0 z-0 overflow-hidden">
+                                <div class="relative w-full h-full z-10 overflow-auto py-4">
+                                    <table class="w-full border-collapse">
+                                        <tbody>
+                                            @for (item of order.lstprotoOrderDeliverySlipDetail; track item; let j = $index) {
+                                                <tr class="h-10">
+                                                    <td class="px-2 py-1">
+                                                        {{j + 1}}
+                                                    </td>
+                                                    <td class="px-2 py-1">
+                                                        <app-product-search label="Product Name" [labelAnimation]="true" [displayText]="item.productDetails" [(ngModel)]="item.productId" name="productId" (onSelect)="selectProduct($event, item)"/>
+                                                    </td>
+                                                    <td class="px-2 py-1">
+                                                        <app-number-control [labelAnimation]="true" label="Quantity" [(ngModel)]="item.quantity" name="quantity" (ngModelChange)="calculate()"/>
+                                                    </td>
+                                                    <td class="px-2 py-1">
+                                                        <app-unit-search label="Unit" [labelAnimation]="true" [displayText]="item.unitDescription" [(ngModel)]="item.unitTypeValue" name="unitTypeValue" (onSelect)="selectUnit($event, item)" />
+                                                    </td>
+                                                    <td class="px-2 py-1">
+                                                        <app-number-control [labelAnimation]="true" label="Rate" [(ngModel)]="item.rate" name="rate" (ngModelChange)="calculate()" [decimal]="2"/>
+                                                    </td>
+                                                    <td class="px-2 py-1">
+                                                        <app-number-control [labelAnimation]="true" label="Amount" [(ngModel)]="item.amount" name="amount" [disabled]="true" [tabindex]="-1"/>
+                                                    </td>
+                                                    <td class="px-2 py-1">
+                                                        <button class="rounded-full h-9 w-9 flex items-center justify-center bg-[#FF0012]" type="button" (click)="deleteItemAlert(item, j)">
+                                                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M12.9199 6.95996V13.9629C12.9199 14.2098 12.7198 14.4099 12.4729 14.4099H2.93699C2.69012 14.4099 2.48999 14.2098 2.48999 13.9629V6.95996"
+                                                                    stroke="white" stroke-width="1.11749" stroke-linecap="round" stroke-linejoin="round" />
+                                                                <path d="M6.21484 11.4299V6.95996" stroke="white" stroke-width="1.11749" stroke-linecap="round"
+                                                                    stroke-linejoin="round" />
+                                                                <path d="M9.19482 11.4299V6.95996" stroke="white" stroke-width="1.11749" stroke-linecap="round"
+                                                                    stroke-linejoin="round" />
+                                                                <path
+                                                                    d="M14.4099 3.97997H10.6849M10.6849 3.97997V1.447C10.6849 1.20013 10.4848 1 10.2379 1H5.17196C4.92509 1 4.72496 1.20013 4.72496 1.447V3.97997M10.6849 3.97997H4.72496M1 3.97997H4.72496"
+                                                                    stroke="white" stroke-width="1.11749" stroke-linecap="round" stroke-linejoin="round" />
+                                                            </svg>
+
+
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                    <div class="flex items-center py-3 relative">
+                                        <span class="w-full h-[2px] mr-3 bg-grey-dc"></span>
+                                        <button
+                                            class="w-9 h-9 font-normal flex items-center justify-center border-2 border-grey-dc text-center rounded-md text-2xl bg-white text-[#323232] transition-all duration-500 ease-in-out hover:border-primary-dc hover:text-primary-dc px-4 mx-auto" (click)="create()">
+                                            +
+                                        </button>
+                                        <span class="w-full h-[2px] ml-3 bg-grey-dc"></span>
+                                    </div>
+                                    <div class="grid grid-cols-5 gap-x-4">
+                                        <div class="col-span-2 block">
+                                            <app-attachment-control label="Attachment Invoice Photo"  [(ngModel)]="slipDetail.deliverySlipPhotoCopy" name="invoicePhotoCopy" [file]="slipDetail.deliverySlipPhotoCopy" (selectedFile)="selectFile($event)"></app-attachment-control>
+                                        </div>
+                                        <div class="col-span-3 block px-12">
+                                            <div class="flex items-center gap-x-3 justify-end">
+                                                <label class="text-xs text-label font-normal">
+                                                    Total Amount
+                                                </label>
+                                                <input class="outline-none border border-grey-dc rounded-md h-9 px-2" [(ngModel)]="slipDetailWithoutInvoice.totalAmount" name="totalAmount" [disabled]="true"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center py-3 px-4 border-t border-t-grey-dc">
+                            <div class="ml-auto flex items-center gap-x-4">
+                                @if (type === 'new') {
+                                    <button class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white" [routerLink]="appService.backUrl">
+                                        Cancel
+                                    </button>
+                                    <button class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                        (click)="save()">
+                                        Save
+                                    </button>
+                                }
+                                @else {
+                                    <button class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white" [routerLink]="appService.backUrl">
+                                        Cancel
+                                    </button>
+                                    <button class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                        (click)="update()">
+                                        Update
+                                    </button>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,105 @@
+@if (_labelAnimation) {
+<div class="relative w-full {{className}}">
+    @if (label) {
+    <label class="text-ssm font-normal text-[#999999] absolute top-[-6px] left-3 bg-white z-10  px-1">
+        {{label}} @if (_required) {
+        <span class="text-red-500">*</span>
+        }
+    </label>
+    }
+    <div class="flex items-center gap-x-3">
+        <app-auto-complete [items]="items" keyname="name" (onInput)="autoSearch($event)"
+            [displayText]="searchText" (onSelect)="doSelect($event)" [btnClicked]="_disabled" (onBlur)="doBlur()"
+            (onClear)="autoClear()" name="{{name}}" [errorTrue]="(control?.control?.invalid || false) && _errorTrue"
+            [isLoading]="loadingTrue" (focus)="autoSearch($event)">
+        </app-auto-complete>
+    </div>
+
+</div>
+}
+@else {
+<div class="relative w-full {{className}}">
+    @if (label) {
+    <label class="text-xs mb-2 font-semibold text-[#2B2B2B]">
+        {{label}}
+    </label>
+    }
+    <div class="flex items-center gap-x-3">
+        <app-auto-complete [items]="items" keyname="name" (onInput)="autoSearch($event)"
+            [displayText]="searchText" (onSelect)="doSelect($event)" [btnClicked]="_disabled" (onBlur)="doBlur()"
+            (onClear)="autoClear()" name="{{name}}" [errorTrue]="(control?.control?.invalid || false) && _errorTrue"
+            [isLoading]="loadingTrue" (focus)="autoSearch($event)" (onSlide)="slideOpen($event)">
+        </app-auto-complete>
+    </div>
+
+</div>
+}
+
+<input type="hidden" [(ngModel)]="value" [disabled]="_disabled" name="{{name}}" placeholder="{{placeholder}}"
+    (blur)="doBlur()" (focus)="doFocus()" (keydown)="checkEnter($event)" #forminput [id]="name" autocomplete="off" />
+
+<ng-template #customerTemplate>
+    <form class="flex flex-col h-full" #l="ngForm" (ngSubmit)="saveParty()">
+        <div class="flex items-center py-4 px-4">
+            <h5 class="text-primary-dc font-semibold">
+                Add New Party
+            </h5>
+            <button class="ml-auto outline-none rounded-md w-[34px] h-[34px] flex items-center justify-center" matRipple
+                (click)="slideClose()" type="button">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 23L14 14M14 14L23 5M14 14L5 5M14 14L23 23" stroke="#2B2B2B" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+        <div class="flex-1 relative">
+            <div class="absolute top-0 left-0 right-0 bottom-0 overflow-hidden z-0">
+                <div class="relative w-full h-full overflow-auto z-10 px-4">
+                    <div class="flex flex-col gap-y-2">
+                        <div class="block">
+                            <app-input-control label="Party Name"
+                                [(ngModel)]="party.partyName" name="partyName" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Party Code"
+                               [(ngModel)]="party.partyRefNo" name="partyRefNo" />
+                        </div>
+                        <div class="block">
+                            <app-number-control label="Contact Number" [(ngModel)]="party.contactNo"
+                                name="contactNo" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Email ID" [(ngModel)]="party.emailId"
+                                name="emailId" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Address Line 1" [(ngModel)]="party.addressLine1"
+                                name="addressLine1" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Address Line 2" [(ngModel)]="party.addressLine2"
+                                name="addressLine2" />
+                        </div>
+                        <div class="block">
+                            <app-input-control label="Address Line 3" [(ngModel)]="party.addressLine3"
+                                name="addressLine3" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="py-2 border-t border-t-grey-dc">
+            <div class="flex items-center justify-end gap-x-4 px-4">
+                <button
+                    class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white"
+                    (click)="slideClose()">
+                    Cancel
+                </button>
+                <button
+                    class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]">
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+</ng-template>

@@ -1,0 +1,147 @@
+// menu-css
+
+app-auto-complete {
+    flex: 1;
+}
+
+.menu-active {
+    background-color: rgb(177 136 255 / var(--tw-bg-opacity));
+    border-color: rgb(114 43 226 / var(--tw-border-opacity));
+
+    svg {
+        stroke: #FFFFFF;
+    }
+
+    span {
+        color: #FFFFFF;
+    }
+}
+
+.menu-active {
+
+    &:hover {
+
+        background-color: rgb(177 136 255 / var(--tw-bg-opacity)) !important;
+        border-color: rgb(114 43 226 / var(--tw-border-opacity)) !important;
+
+        svg {
+            stroke: #FFFFFF !important;
+        }
+
+        span {
+            color: #FFFFFF !important;
+        }
+    }
+}
+
+app-initial,
+app-new,
+app-received-invoice,
+app-order,
+app-view,
+app-invoice,
+app-without-invoice,
+app-pre-order,
+app-pre-order-new {
+    flex: 1;
+    position: relative;
+}
+
+app-empty-spinner {
+    width: 100%;
+    background-color: rgba($color: #FFFFFF, $alpha: 0.4);
+}
+
+
+.border-danger {
+    border: 1px solid #FF0012 !important;
+}
+
+.auto-dropdown {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: white;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 24%);
+}
+
+.v-center {
+    display: flex;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    margin: auto;
+
+    app-full-spinner {
+        width: 32px;
+    }
+
+    .spinner {
+        width: 32px;
+        height: 32px;
+
+        svg {
+            width: 24px !important;
+            height: 24px !important;
+        }
+    }
+}
+
+.mat-list-base {
+
+    .ledger-item {
+
+        .mat-list-item-content {
+            display: flex;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+
+            .item-name {
+                font-size: 0.675rem;
+                color: var(--bs-primary);
+            }
+        }
+
+    }
+}
+
+app-auto-list-item {
+    &.active {
+
+        div {
+
+            .mat-mdc-list-item {
+                background-color: #EEE5FF !important;
+            }
+        }
+
+    }
+}
+
+.slide-dialog {
+    height: 100%;
+
+    .dialog-cover {
+        min-width: 480px !important;
+        max-width: 480px !important;
+        background-color: white;
+        height: 100%;
+    }
+}
+
+.mat-expansion-panel-header {
+    height: auto !important;
+
+    .mat-content {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5rem;
+    }
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background-color: #722BE2 !important;
+}

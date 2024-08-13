@@ -1,0 +1,58 @@
+<div class="w-full h-full flex items-center border-b-grey-dc border-b bg-white pr-4">
+    <div class="px-4 py-2.5 border-r-grey-dc border-r">
+        <img src="assets/png/logo.png" loading="eager" />
+    </div>
+    <ol class="px-4 flex items-center">
+        @for (item of appService.screens; track item.name; let index = $index) {
+            <li class="flex gap-x-3 items-center text-xs">
+                @if (index > 0) {
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -840 840 840" width="18">
+                        <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
+                    </svg>
+                    <div class="text-xl font-medium text-[#323232]" [ngClass]="{'text-primary-dc': (appService.screens.length - 1 === index)}">
+                        {{item.name}}
+                    </div>
+                }
+                @else {
+                    <div class="text-xl font-medium text-[#323232]">
+                        {{item.name}}
+                    </div>
+                }
+            </li>
+        }
+    </ol>
+    <div class="ml-auto flex items-center gap-x-4">
+        <div class="w-7 h-7 rounded-full border-grey-dc border cursor-pointer" matRipple>
+            <span class="flex items-center justify-center w-full h-full">
+                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M8.67917 1.83383C9.50182 2.65649 9.96398 3.77225 9.96398 4.93566V9.62087H1.19074V4.93566C1.19074 3.77225 1.65289 2.65649 2.47555 1.83383C3.2982 1.01118 4.41398 0.549013 5.57739 0.549013C6.74079 0.549013 7.85651 1.01117 8.67917 1.83383Z"
+                        stroke="#333333" stroke-width="0.547" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M0.831039 10.3862H10.7255C11.0335 10.3862 11.2831 10.6358 11.2831 10.9437V11.2216C11.2831 11.5296 11.0335 11.7792 10.7255 11.7792H0.831039C0.523119 11.7792 0.2735 11.5296 0.2735 11.2216V10.9437C0.2735 10.6358 0.523119 10.3862 0.831039 10.3862Z"
+                        stroke="#333333" stroke-width="0.547" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M6.71551 13.2983C6.49842 13.587 6.2235 13.7262 5.95978 13.7265C5.69677 13.7244 5.42288 13.5843 5.20694 13.2956C5.0361 13.0672 4.91937 12.7676 4.87729 12.439H7.04733C7.00503 12.7689 6.88745 13.0696 6.71551 13.2983Z"
+                        stroke="#333333" stroke-width="0.547" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M9.88889 5.13379C11.0571 5.13379 12.0041 4.18678 12.0041 3.01859C12.0041 1.85039 11.0571 0.903385 9.88889 0.903385C8.72069 0.903385 7.77368 1.85039 7.77368 3.01859C7.77368 4.18678 8.72069 5.13379 9.88889 5.13379Z"
+                        fill="#ED0000" />
+                </svg>
+            </span>
+        </div>
+        <div class="flex items-center gap-x-2">
+            <div class="w-7 h-7 rounded-full border-primary-dc border overflow-hidden select-none">
+                <span class="w-full h-full">
+                    <img src="assets/png/avatar.png" loading="lazy" />
+                </span>
+            </div>
+            <span class="text-sm">
+                Welcome User name
+            </span>
+        </div>
+        
+        <span class="text-sm font-bold">
+            ABC Private Limited
+        </span>
+    </div>
+</div>

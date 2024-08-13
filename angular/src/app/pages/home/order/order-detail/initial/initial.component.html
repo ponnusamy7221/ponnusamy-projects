@@ -1,0 +1,60 @@
+
+<div class="flex-1 flex flex-col h-full w-full gap-x-2 gap-y-2">
+    
+    <div class="flex items-center gap-x-2.5">
+        <button class="button-add" matRipple (click)="createOrder()">
+            <span class="text-xs font-bold flex items-center justify-center gap-x-1">
+                <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 0.5V14.5" stroke="#2B2B2B" stroke-miterlimit="10" />
+                    <path d="M0 7.5H14" stroke="#2B2B2B" stroke-miterlimit="10" />
+                </svg>
+                Add
+            </span>
+        </button>
+        <div class="inline-block min-w-72">
+            <app-input-control [noMargin]="true" placeholder="Search any keyword" [(ngModel)]="searchParams.keyword" name="keyword" (ngModelChange)="searchInput()"/>
+        </div>
+    </div>
+    <div class="flex-1 relative">
+        <div class="absolute top-0 left-0 right-0 bottom-0 z-0 overflow-hidden">
+            <div class="relative w-full h-full z-10 overflow-auto">
+                <div class="grid grid-cols-3 gap-x-2 gap-y-2">
+                    @for (item of searchResult.plstprotoOrderDetailsResultSet; track $index) {
+                        <div class="bg-white border cursor-pointer border-grey-dc rounded-md p-4 hover:border-primary-dc hover:bg-menu-hover transition-all duration-500 ease-in-out flex flex-col gap-y-1"
+                            (click)="openOrder(item.orderDetailId)">
+                            <div class="flex items-center justify-between gap-x-4">
+                                <span class="text-label text-ssm flex flex-col">
+                                    Order No
+                                    <strong class="text-menu-outline">
+                                        {{item.orderRefNo}}
+                                    </strong>
+                                </span>
+                                <span class="text-label text-ssm flex flex-col">
+                                    Order Date
+                                    <strong class="text-menu-outline">
+                                        {{item.enteredDate}}
+                                    </strong>
+                                </span>
+                                <span class="text-label text-ssm flex flex-col">
+                                    Order Status
+                                    <strong class="" [ngClass]="{'text-green-600': item.statusDescription === 'Complete', 'text-amber-600': item.statusDescription !== 'Complete'}">
+                                        {{item.statusDescription}}
+                                    </strong>
+                                </span>
+                            </div>
+                            <div class="text-value text-sm font-extrabold">
+                                {{item.customerName}}, {{item.customerDetails}}
+                            </div>
+                            <span class="text-label text-ssm">
+                                From
+                                <strong class="text-menu-outline font-extrabold text-ssm">
+                                    {{item.vendorName}}
+                                </strong>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

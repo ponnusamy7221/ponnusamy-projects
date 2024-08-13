@@ -1,0 +1,77 @@
+<div class="w-full h-full grid grid-cols-7 gap-x-3 pl-4">
+    <div class="block h-full rounded-md bg-white py-2">
+        <h6 class="text-ssm font-medium mb-2 px-4">
+            Master menu
+        </h6>
+        <ul class="flex flex-col">
+            <li class="px-4 py-2 cursor-pointer" matRipple [routerLink]="['/home/master/user']" [routerLinkActive]="['text-primary-dc']">
+                <a class="text-xs font-medium">
+                    User
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple [routerLink]="['/home/master/customer']" [routerLinkActive]="['text-primary-dc']">
+                <a class="text-xs font-medium">
+                    Customer
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple [routerLink]="['/home/master/vendor']" [routerLinkActive]="['text-primary-dc']">
+                <a class="text-xs font-medium">
+                    Vendor
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    Company
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple [routerLink]="['/home/master/warehouse']" [routerLinkActive]="['text-primary-dc']">
+                <a class="text-xs font-medium">
+                    Warehouse
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    Business Country
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    Branches
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    Department
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    Team
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    Packing Category
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    Items Category
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    Items Sub Category
+                </a>
+            </li>
+            <li class="px-4 py-2 cursor-pointer" matRipple>
+                <a class="text-xs font-medium">
+                    User Permissions
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-span-6 bg-white rounded-md">
+        <router-outlet></router-outlet>
+    </div>
+</div>

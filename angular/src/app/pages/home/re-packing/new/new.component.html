@@ -1,0 +1,135 @@
+<div class="flex flex-row h-full w-full gap-x-4">
+    <ol class="flex flex-col h-full gap-y-2">
+        <li class="flex items-center gap-x-2.5">
+            <a class="w-8.5 h-8.5 rounded-lg flex items-center justify-center cursor-pointer bg-white border border-grey-dc"
+                matRipple [routerLink]="['/home']">
+                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.21101 19V8.76471H2L11.3578 1L20 8.61345H19.0642V18.9496H14.2752V12.1429H8.15596V19"
+                        stroke="#333333" stroke-miterlimit="10" />
+                </svg>
+
+            </a>
+            <a class="w-8.5 h-8.5 rounded-lg flex items-center justify-center cursor-pointer bg-white border border-grey-dc"
+                matRipple [routerLink]="['/home/repacking']">
+                <svg width="18" height="18" viewBox="0 0 18 18" class="stroke-menu-outline" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_118_782)">
+                        <path
+                            d="M1.32642 5.21053H10.6106C13.9264 5.21053 16.6738 7.95789 16.6738 11.2737C16.6738 14.5895 13.9264 17.3368 10.6106 17.3368H1.32642"
+                            stroke="#333333" stroke-miterlimit="10" />
+                        <path d="M5.4001 9.37895L1.32642 5.21053L5.4001 1.13684" stroke-miterlimit="10" />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_118_782">
+                            <rect width="18" height="18" fill="white" />
+                        </clipPath>
+                    </defs>
+                </svg>
+            </a>
+        </li>
+    </ol>
+    <div class="flex-1 flex flex-col h-full w-full gap-y-2">
+        <div class="flex flex-col gap-x-2.5 rounded-md bg-white p-4">
+            <div class="flex items-center gap-x-2">
+                <div class="block">
+                    <app-order-no-search label="Order No" name="order no" [displayText]="orderRefNo"
+                        (onSelect)="selectOrder($event)"></app-order-no-search>
+                </div>
+                <button
+                    class="dc-button max-w-max text-white mt-6 bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                    (click)="checkOrderStatusInRepacking(this.orderId)" [disabled]="orderId === 0">
+                    Proceed to pack
+                </button>
+            </div>
+        </div>
+        <div class="flex-1 relative">
+            <div class="absolute top-0 left-0 right-0 bottom-0 z-0 overflow-hidden">
+                <div class="relative w-full h-full z-10 overflow-auto">
+                    <div class="flex flex-col h-full bg-white rounded">
+                        <div class="flex flex-col gap-y-2 px-4 py-4">
+                            <div class="grid grid-cols-3 gap-x-3">
+                                <div class="block">
+                                    <app-date-control label="From Date" [(ngModel)]="fromDate" name="fromDate" />
+                                </div>
+                                <div class="block">
+                                    <app-date-control label="To Date" [(ngModel)]="toDate" name="toDate" />
+                                </div>
+                                <div class="block">
+                                    <app-customer-search label="Customer Name" [displayText]="customerName"
+                                        [(ngModel)]="customerId" name="customerId"
+                                        (onSelect)="selectCustomer($event)" />
+                                </div>
+                            </div>
+                            <button
+                                class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]"
+                                (click)="getRepackingBasedOnValues()">
+                                Show Orders
+                            </button>
+                        </div>
+                        <div class="flex-1 relative">
+                            <div class="absolute top-0 left-0 right-0 bottom-0 z-0 overflow-hidden">
+                                <div class="relative w-full h-full z-10 overflow-auto">
+                                    <p class="pb-2 text-xxs text-label font-normal px-4">
+                                        {{repacking.lstprotoOrderDetails.length}} Orders found for the selected data
+                                    </p>
+                                    <div class="grid grid-cols-3 gap-x-2 gap-y-2 px-4 pb-3">
+                                        @for (item of repacking.lstprotoOrderDetails; track $index) {
+                                        <div class="bg-white border cursor-pointer border-grey-dc rounded-md p-4 hover:border-primary-dc hover:bg-menu-hover transition-all duration-500 ease-in-out flex flex-col gap-y-1"
+                                            (click)="checkOrderStatusInRepacking(item.orderDetailId)">
+                                            <div class="flex justify-between items-center gap-x-4">
+                                                <span class="text-label text-ssm">
+                                                    Order No
+                                                    <strong class="text-menu-outline">
+                                                        {{item.orderRefNo}}
+                                                    </strong>
+                                                </span>
+                                                <span class="text-label text-ssm">
+                                                    Order Date
+                                                    <strong class="text-menu-outline">
+                                                        {{item.orderDate}}
+                                                    </strong>
+                                                </span>
+                                                <span class="text-label text-ssm">
+                                                    <span class="text-label text-ssm flex flex-col">
+                                                        Order Status
+                                                        <strong class=""
+                                                            [ngClass]="{'text-green-600': item.statusDescription === 'Complete', 'text-amber-600': item.statusDescription !== 'Complete'}">
+                                                            {{item.statusDescription}}
+                                                        </strong>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="text-value text-sm font-extrabold">
+                                                {{item.customerDetails}}
+                                            </div>
+                                            <span class="text-label text-ssm">
+                                                From
+                                                <strong class="text-menu-outline font-extrabold text-ssm">
+                                                    {{item.wareHouseDetails}}
+                                                </strong>
+                                            </span>
+                                        </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="flex items-center py-3 px-4 border-t border-t-grey-dc">
+                            <div class="ml-auto flex items-center  gap-x-4">
+                                <button
+                                    class="dc-button text-[#323232] border border-grey-dc max-w-max rounded-md hover:bg-[#747474] hover:text-white">
+                                    Cancel
+                                </button>
+                                <button
+                                    class="dc-button max-w-max text-white bg-[#B188FF] border border-[#722BE2] rounded-md hover:bg-[#722BE2]">
+                                    Save & Continue
+                                </button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="relative w-full {{className}}">
+    <div class="relative w-full">
+        <input type="text" class="h-10 w-full outline-none border border-grey-dc rounded-md pr-11 pl-2 py-1"
+            autocomplete="off" [(ngModel)]="searchText" (input)="doChange($event)" #searchbox [disabled]="btnClickedNow"
+            [ngClass]="{'border-danger': _errorTrue, 'bg-[#f8f8f8] select-none pointer-events-none': btnClickedNow,}" name="{{name}}" (blur)="doBlur()" (keyup)="onKeyUp($event)"
+            id="{{name}}" (focus)="onFocus($event)" placeholder="{{placeholder}}"/>
+        <span class="absolute top-0 right-0 w-10 h-10 flex items-center justify-center">
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.0275 0.5L7 5.44467L11.9725 0.5L13.5 2.02227L7 8.5L0.5 2.02227L2.0275 0.5Z" fill="#D1D1D1" />
+            </svg>
+        </span>
+    </div>
+</div>
+
+<ng-template #autocompleteoption>
+    <div class="absolute top-0 left-0 bottom-0 right-0 overflow-hidden z-0 flex-1">
+        <div class="relative w-full h-full overflow-auto z-10">
+            <mat-list role="list" class="flex flex-col h-full">
+              @if (!isNoAdd) {
+                <mat-list-item role="listitem" class="cursor-pointer" matRipple (click)="slideOpen()">
+                  <div class="flex items-center gap-x-3">
+                      <button
+                          class="w-7 h-7 font-normal flex items-center justify-center border-2 border-primary-dc text-center rounded-md text-2xl bg-white text-primary-dc">
+                          +
+                      </button>
+                      <h4 class="text-primary-dc">
+                          Add {{searchText !== '' ? searchText : _label}}
+                      </h4>
+                  </div>
+              </mat-list-item>
+              }
+
+
+                <div class="relative flex-1">
+                    <div class="absolute top-0 left-0 bottom-0 right-0 overflow-hidden z-0 flex-1">
+                        <div class="relative w-full h-full overflow-auto z-10">
+                            @if (isLoadingNow) {
+                            <div class="flex items-center justify-center pt-14">
+                                <app-full-spinner></app-full-spinner>
+                            </div>
+                            }
+                            @else {
+                            @for (item of itemsNow; track item) {
+                            <app-auto-list-item [item]="item">
+                                <mat-list-item role="listitem" (click)="doSelect(item)" class="cursor-pointer"
+                                    matRipple>
+                                    {{item[keyname]}}
+                                </mat-list-item>
+                            </app-auto-list-item>
+                            }
+                            @empty {
+                            @if (searchText !== '') {
+                            <app-auto-list-item [item]="{}">
+                                <mat-list-item role="listitem">
+                                    Search results not found
+                                </mat-list-item>
+                            </app-auto-list-item>
+                            }
+                            }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </mat-list>
+        </div>
+    </div>
+</ng-template>

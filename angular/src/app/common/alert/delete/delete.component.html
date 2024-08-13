@@ -1,0 +1,35 @@
+<div class="bg-red-400 p-4">
+    <div class="flex items-center gap-x-4 justify-between">
+        <span class="icon">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M17.0007 33C25.8373 33 33.0007 25.8366 33.0007 17C33.0007 8.16344 25.8373 1 17.0007 1C8.16418 1 1.00073 8.16344 1.00073 17C1.00073 25.8366 8.16418 33 17.0007 33Z"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M18.9365 22.5C18.9365 23.5701 18.0691 24.4375 16.999 24.4375C15.929 24.4375 15.0615 23.5701 15.0615 22.5C15.0615 21.4299 15.929 20.5625 16.999 20.5625C18.0691 20.5625 18.9365 21.4299 18.9365 22.5Z"
+                    fill="white" stroke="white" stroke-width="0.125" />
+                <path
+                    d="M17 19.5V18.1875C17.89 18.1875 18.76 17.9181 19.5001 17.4133C20.2401 16.9085 20.8169 16.1911 21.1575 15.3517C21.498 14.5123 21.5872 13.5887 21.4135 12.6976C21.2399 11.8065 20.8113 10.9879 20.182 10.3455C19.5526 9.70303 18.7508 9.26552 17.8779 9.08827C17.005 8.91102 16.1002 9.00199 15.2779 9.34968C14.4557 9.69737 13.7529 10.2862 13.2584 11.0416C12.7639 11.797 12.5 12.6852 12.5 13.5938"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+        </span>
+        <h5 class="text-white text-sm font-medium">
+            {{msg}}
+        </h5>
+        <div class="flex items-center gap-x-3">
+            <button class="inline-flex items-center justify-center w-10 h-10" (click)="yes()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.53293 13.0005L9.63063 18.2591L20.2614 7.47453" stroke="white" stroke-width="2"
+                        stroke-linecap="round" />
+                </svg>
+            </button>
+            <button class="inline-flex items-center justify-center w-10 h-10" (click)="close()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18" stroke="white" stroke-width="2" stroke-linecap="round" />
+                    <path d="M18 18L6 6" stroke="white" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
